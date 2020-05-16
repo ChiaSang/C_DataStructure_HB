@@ -15,7 +15,7 @@ int get();
 // Inital Array
 void init_arr(struct Arr *pArr, int len); // 初始化数组
 
-void sort_arr();
+void sort_arr(struct Arr *pArr);
 
 // Show Array
 void show_arr(struct Arr *pArr); // 显示数组
@@ -42,13 +42,17 @@ int main(void)
     append_arr(&arr, 6);
     if (delete_arr(&arr, 3, &val))
     {
-        printf("Succeed!%d\n", val);
+        printf("Succeed del %d\n", val);
     }
     else
     {
         printf("Failed");
     }
 
+    show_arr(&arr);
+    inversion_arr(&arr);
+    show_arr(&arr);
+    sort_arr(&arr);
     show_arr(&arr);
     return 0;
 }
@@ -175,9 +179,9 @@ void show_arr(struct Arr *pArr)
 void inversion_arr(struct Arr *pArr)
 {
     int i = 0;
-    int j = pArr->cnt-1;
+    int j = pArr->cnt - 1;
     int t;
-    while (i<j)
+    while (i < j)
     {
         t = pArr->pBase[i];
         pArr->pBase[i] = pArr->pBase[j];
@@ -186,5 +190,18 @@ void inversion_arr(struct Arr *pArr)
         --j;
     }
     return;
-    
+}
+
+void sort_arr(struct Arr *pArr)
+{
+    int i, j, t;
+    for (i = 0; i < pArr->cnt; i++)
+    {
+        for (j = i + 1; j < pArr->cnt; j++)
+        {
+            t = pArr->pBase[i];
+            pArr->pBase[i] = pArr->pBase[j];
+            pArr->pBase[j] = t;
+        }
+    }
 }
